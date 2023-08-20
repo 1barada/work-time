@@ -1,0 +1,11 @@
+.container {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    top: 0px;
+    left: 0px;
+}
+
+.input {
+    height: 100%;
+}

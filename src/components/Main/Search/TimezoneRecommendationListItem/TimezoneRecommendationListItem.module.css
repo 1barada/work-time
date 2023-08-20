@@ -1,0 +1,9 @@
+.container {
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pointed {
+    background-color: bisque;
+}
