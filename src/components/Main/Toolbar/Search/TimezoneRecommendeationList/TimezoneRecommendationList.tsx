@@ -2,7 +2,7 @@ import { Timezone } from 'countries-and-timezones';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef } from 'react';
 import TimezoneRecommendationListItem from '../TimezoneRecommendationListItem/TimezoneRecommendationListItem';
 import styles from './TimezoneRecommendationList.module.css'
-import {styleConstants} from '../../../../data/constants';
+import {styleConstants} from '../../../../../data/constants';
 
 interface ITimezoneRecommendationListProps {
     recommendedTimezones: Timezone[],

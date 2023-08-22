@@ -1,12 +1,12 @@
 import { ChangeEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../../../store';
-import { clearRecommendations, searchTimezone } from '../../../store/reducers/TimezonesSlice/TimezonesSlice';
+import { AppDispatch, RootState } from '../../../../store';
+import { clearRecommendations, searchTimezone } from '../../../../store/reducers/TimezonesSlice/TimezonesSlice';
 import { useSelector } from 'react-redux';
 import { Timezone } from 'countries-and-timezones';
-import TimezoneRecommendationList from './TimezoneRecommendeationList/TimezoneRecommendationList';
 import styles from './Search.module.css';
-import { styleConstants } from '../../../data/constants';
+import { styleConstants } from '../../../../data/constants';
+import TimezoneRecommendationList from './TimezoneRecommendeationList/TimezoneRecommendationList';
 
 interface ISearchProps {
     
