@@ -8,11 +8,6 @@ import Main from './components/Main/Main';
 function App() {
   const {timezones, countries, openedTimezones} = useSelector<RootState, TimezonesState>(state => state.timezonesSlice);
 
-  useEffect(() => {
-    console.log(timezones)
-    console.log(countries)
-  }, []);
-
   return (
     <div className="App container">
       <Main/>

@@ -1,18 +1,24 @@
 import { Timezone } from 'countries-and-timezones';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef } from 'react';
-import TimezoneRecommendationListItem from '../TimezoneRecommendationListItem/TimezoneRecommendationListItem';
+import TimezoneRecommendationListItem from './TimezoneRecommendationListItem/TimezoneRecommendationListItem';
 import styles from './TimezoneRecommendationList.module.css'
 import {styleConstants} from '../../../../../data/constants';
 
 interface ITimezoneRecommendationListProps {
     recommendedTimezones: Timezone[],
     topOffset: number,
+    openTimezoneHandler: 
+    (
+        e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+        timezone: Timezone
+    ) => void,
     setIsActive: Dispatch<SetStateAction<boolean>>
 }
 
 const TimezoneRecommendationList: FunctionComponent<ITimezoneRecommendationListProps> = ({
     recommendedTimezones,
     topOffset,
+    openTimezoneHandler,
     setIsActive
 }) => {
     const listRef = useRef<HTMLUListElement>(null);
@@ -44,7 +50,11 @@ const TimezoneRecommendationList: FunctionComponent<ITimezoneRecommendationListP
                         not found
                     </div>
                 :   recommendedTimezones.map((timezone) => 
-                        <TimezoneRecommendationListItem timezone={timezone} key={timezone.name}/>
+                        <TimezoneRecommendationListItem 
+                            timezone={timezone} 
+                            key={timezone.name}
+                            openTimezoneHandler={openTimezoneHandler}
+                        />
                     )
             }
         </ul>

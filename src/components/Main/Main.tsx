@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { TimezonesState } from '../../store/reducers/TimezonesSlice/TimezonesSlice';
-import TimezoneList from './TimezoneList';
+import TimezoneList from './TimezoneList/TimezoneList';
 import styles from './Main.module.css';
 import Toolbar from './Toolbar/Toolbar';
 
@@ -16,7 +16,7 @@ const Main: FunctionComponent<IMainProps> = () => {
     return (
         <div className={styles.container}>
             <Toolbar/>
-            <TimezoneList timezones={timezones}/>
+            <TimezoneList timezones={openedTimezones}/>
         </div>
     );
 };

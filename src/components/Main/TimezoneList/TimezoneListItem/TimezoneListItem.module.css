@@ -1,0 +1,12 @@
+.container {
+    height: 68px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+}
+
+.even {
+    background-color: #e8e39c;
+}

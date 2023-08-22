@@ -1,7 +1,7 @@
 import { ChangeEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../store';
-import { clearRecommendations, searchTimezone } from '../../../../store/reducers/TimezonesSlice/TimezonesSlice';
+import { clearRecommendations, searchTimezone, openTimezone } from '../../../../store/reducers/TimezonesSlice/TimezonesSlice';
 import { useSelector } from 'react-redux';
 import { Timezone } from 'countries-and-timezones';
 import styles from './Search.module.css';
@@ -40,6 +40,12 @@ const Search: FunctionComponent<ISearchProps> = ({
         setSearchText(e.target.value);
     }
 
+    function openTimezoneHandler(e: React.MouseEvent<HTMLLIElement, MouseEvent>, timezone: Timezone) {
+        dispatch(openTimezone(timezone.name));
+        setIsRecomendationsActive(false);
+        setSearchText('');
+    }
+
     return (
         <div 
             className={styles.container}
@@ -48,6 +54,7 @@ const Search: FunctionComponent<ISearchProps> = ({
         >
             <input
                 className={styles.input} 
+                value={searchText}
                 type="text"
                 placeholder='timezone name or code'
                 onChange={onSearchTextChange}
@@ -57,6 +64,7 @@ const Search: FunctionComponent<ISearchProps> = ({
                 recommendedTimezones={recomendedTimezones}
                 topOffset={styleConstants.searchHeight + (searchRef.current?.offsetTop || 0)}
                 setIsActive={setIsRecomendationsActive}
+                openTimezoneHandler={openTimezoneHandler}
             />}
         </div>
     );

@@ -2,10 +2,12 @@
     width: 200px;
     display: flex;
     flex-direction: column;
-    top: 0px;
-    left: 0px;
 }
 
 .input {
     height: 100%;
+    border-radius: 5px;
+    border: 1px solid #535927;
+    font-size: 100%;
+    padding: 4px 5px 6px;
 }

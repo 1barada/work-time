@@ -1,0 +1,27 @@
+.container {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home {
+    flex: 0 0 20%;
+}
+
+.name {
+    flex: 0 0 60%;
+}
+
+.offset {
+    flex: 0 0 20%;
+}
+
+.city {
+    font-weight: bold;
+}
+
+.region {
+    font-size: 12px;
+    line-height: 12px;
+}

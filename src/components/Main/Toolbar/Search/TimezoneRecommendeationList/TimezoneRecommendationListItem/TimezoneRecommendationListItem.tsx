@@ -4,11 +4,17 @@ import styles from './TimezoneRecommendationListItem.module.css';
 import { PointerEvent } from 'react';
 
 interface ITimezoneRecommendationListItemProps {
-    timezone: Timezone
+    timezone: Timezone,
+    openTimezoneHandler: 
+    (
+        e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+        timezone: Timezone
+    ) => void,
 }
 
 const TimezoneRecommendationListItem: FunctionComponent<ITimezoneRecommendationListItemProps> = ({
-    timezone
+    timezone,
+    openTimezoneHandler
 }) => {
     const [isPointed, setIsPointed] = useState<boolean>(false);
 
@@ -25,6 +31,7 @@ const TimezoneRecommendationListItem: FunctionComponent<ITimezoneRecommendationL
             className={`${styles.container} ${isPointed && styles.pointed}`} 
             onPointerEnter={onPointerEnter}
             onPointerLeave={onPointerLeave}
+            onClick={e => openTimezoneHandler(e, timezone)}
         >
             {timezone.name}
         </li>

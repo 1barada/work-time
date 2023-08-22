@@ -1,0 +1,34 @@
+.container {
+    width: calc(100% / 24);
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    border-top: 1px solid #535927;
+    border-bottom: 1px solid #535927;
+}
+
+.first {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-left: 1px solid #535927;
+}
+
+.last {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-right: 1px solid #535927;
+}
+
+.day {
+    background-color: #fffff3;
+}
+
+.evening {
+    background-color: #edfbff;
+}
+
+.night {
+    background-color: #95b3d7;
+}
