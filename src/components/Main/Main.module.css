@@ -1,7 +1,7 @@
 .container {
     margin: 80px 100px 80px;
     width: calc(100% - 200px);
-    background-color: #D9CC8B;
     border: 1px solid #0D0D0D;
-    border-radius: 3px;
+    border-radius: 4px;
+    overflow: hidden;
 }

@@ -7,6 +7,14 @@
 
 .home {
     flex: 0 0 20%;
+    display: flex;
+    justify-content: center;
+    color: #81a72a;
+}
+
+.is_home {
+    font-size: 30px;
+    color: black;
 }
 
 .name {
@@ -15,6 +23,7 @@
 
 .offset {
     flex: 0 0 20%;
+    text-align: center;
 }
 
 .city {

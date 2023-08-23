@@ -1,0 +1,46 @@
+.outer_container {
+    position: absolute;
+    height: 0;
+}
+
+.inner_container {
+    position: absolute;
+    height: 68px;
+    width: 20px;
+    left: -40px;
+    top: -32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button {
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: grey;
+    cursor: pointer;
+}
+
+.button:hover {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.remove {
+    font-size: 12px;
+}
+
+.remove:hover {
+    color: rgb(255, 85, 85);
+}
+
+.home {
+    font-size: 17px;
+    padding-bottom: 4px;
+}
+
+.home:hover {
+    color: black;
+}

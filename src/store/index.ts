@@ -1,8 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducers from "./reducers";
+import { Timezone } from "countries-and-timezones";
+import { initialState as timezonesInitialState } from "./reducers/TimezonesSlice/TimezonesSlice";
+
+const openedTimezonesText = localStorage.getItem('openedTimezones');
+let openedTimezones: (Timezone & {isHome: boolean})[] = [];
+let homeTimezone: Timezone | null = null;
+if (openedTimezonesText) {
+    openedTimezones = JSON.parse(openedTimezonesText);
+    if (openedTimezones.length !== 0) {
+        homeTimezone = openedTimezones.find((timezone) => timezone.isHome) || openedTimezones[0];
+    }
+}
 
 const store = configureStore({
-    reducer: rootReducers
+    reducer: rootReducers,
+    preloadedState: {
+        timezonesSlice: {
+            ...timezonesInitialState,
+            openedTimezones,
+            homeTimezone
+        }
+    }
 });
 
 export type RootState = ReturnType<typeof store.getState>;
