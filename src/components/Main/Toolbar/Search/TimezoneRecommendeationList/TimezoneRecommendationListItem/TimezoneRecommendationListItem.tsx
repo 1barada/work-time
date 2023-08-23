@@ -1,7 +1,12 @@
 import { Timezone } from 'countries-and-timezones';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import styles from './TimezoneRecommendationListItem.module.css';
 import { PointerEvent } from 'react';
+import ITimeForTimezones from '../../../../../../models/ITimeForTimezones';
+import minutesToHoursAndMinutes from '../../../../../../utils/minutesToHoursAndMinutes';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../../store';
+import timeToString from '../../../../../../utils/timeToString';
 
 interface ITimezoneRecommendationListItemProps {
     timezone: Timezone,
@@ -17,6 +22,15 @@ const TimezoneRecommendationListItem: FunctionComponent<ITimezoneRecommendationL
     openTimezoneHandler
 }) => {
     const [isPointed, setIsPointed] = useState<boolean>(false);
+    const [time, setTime] = useState<ITimeForTimezones>({
+        hours: 0,
+        minutes: 0
+    });
+    const gmt = useSelector<RootState, ITimeForTimezones>(state => state.timezonesSlice.gmt);
+    
+    useEffect(() => {
+        setTime(minutesToHoursAndMinutes(timezone.utcOffset + ((gmt.hours * 60) + gmt.minutes)));
+    }, [gmt]);
 
     function onPointerEnter(e: PointerEvent<HTMLLIElement>) {
         setIsPointed(true);
@@ -33,7 +47,8 @@ const TimezoneRecommendationListItem: FunctionComponent<ITimezoneRecommendationL
             onPointerLeave={onPointerLeave}
             onClick={e => openTimezoneHandler(e, timezone)}
         >
-            {timezone.name}
+            <div>{timezone.name}</div>
+            <div>{timeToString(time)}</div>
         </li>
     );
 };

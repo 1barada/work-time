@@ -3,6 +3,9 @@ import { FunctionComponent, useEffect, useState } from "react";
 import TimezoneListItem from "./TimezoneListItem/TimezoneListItem";
 import styles from './TimezoneList.module.css';
 import ITimeForTimezones from "../../../models/ITimeForTimezones";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
+import { updateGmt } from "../../../store/reducers/TimezonesSlice/TimezonesSlice";
 
 interface TimezoneListProps {
     timezones: (Timezone & {isHome: boolean})[]
@@ -12,10 +15,7 @@ const TimezoneList: FunctionComponent<TimezoneListProps> = ({
     timezones
 }) => {
     const [date, setDate] = useState<Date>(new Date());
-    const [gmt, setGmt] = useState<ITimeForTimezones>({
-        hours: 0,
-        minutes: 0
-    });
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         const minuteInterval = setInterval(() => {
@@ -30,10 +30,10 @@ const TimezoneList: FunctionComponent<TimezoneListProps> = ({
         const hoursOffset = Math.floor(offset / 60);
         const minutesOffset = (hoursOffset * 60) - offset;
 
-        setGmt({
+        dispatch(updateGmt({
             hours: date.getHours() + hoursOffset,
             minutes: date.getMinutes() + minutesOffset
-        });
+        }));
     }, [date]);
 
     return (
@@ -43,7 +43,6 @@ const TimezoneList: FunctionComponent<TimezoneListProps> = ({
                     timezone={timezone} 
                     index={index} 
                     key={timezone.name}
-                    gmt={gmt}
                 />
             )}
         </div>

@@ -1,13 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import ct, { Timezone, Country } from 'countries-and-timezones';
 import { amountOfRecommendations } from '../../../data/constants';
+import ITimeForTimezones from '../../../models/ITimeForTimezones';
 
 export interface TimezonesState {
     timezones: Timezone[],
     countries: Country[],
     openedTimezones: (Timezone & {isHome: boolean})[],
     recomendedTimezones: Timezone[], // search recomendations
-    homeTimezone: Timezone | null
+    homeTimezone: Timezone | null,
+    gmt: ITimeForTimezones
 }
 
 export const initialState: TimezonesState = {
@@ -15,7 +17,8 @@ export const initialState: TimezonesState = {
     countries: Object.entries(ct.getAllCountries()).map(([key, value]) => value),
     openedTimezones: [],
     recomendedTimezones: [],
-    homeTimezone: null
+    homeTimezone: null,
+    gmt: {hours: 0, minutes: 0}
 }
 
 const TimezonesSlice = createSlice({
@@ -63,6 +66,9 @@ const TimezonesSlice = createSlice({
             state.openedTimezones = timezones;
             
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
+        },
+        updateGmt(state, {payload}: PayloadAction<ITimeForTimezones>) {
+            state.gmt = payload;
         }
     },
 })
@@ -72,6 +78,7 @@ export const {
     clearRecommendations,
     openTimezone,
     closeTimezone,
-    setHomeTimezone
+    setHomeTimezone,
+    updateGmt
 } = TimezonesSlice.actions;
 export default TimezonesSlice.reducer;

@@ -29,7 +29,9 @@ const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
         <div className={styles.container}>
             <div 
                 className={`${styles.home} ${timezone.isHome && styles.is_home}`}
-                title={timezone.isHome ? 'Home timezone' : `${offsetFromHome.hours < 0 ? offsetFromHome : `+${offsetFromHome}`} hours from home`}
+                title={timezone.isHome 
+                    ? 'Home timezone' 
+                    : `${timeOffsetToString(offsetFromHome)} hours from home`}
             >
                 {timezone.isHome ? '⌂' : timeOffsetToString(offsetFromHome)}
             </div>

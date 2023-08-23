@@ -9,18 +9,19 @@ import { AppDispatch, RootState } from '../../../../store';
 import { closeTimezone, setHomeTimezone } from '../../../../store/reducers/TimezonesSlice/TimezonesSlice';
 import ITimeForTimezones from '../../../../models/ITimeForTimezones';
 import { useSelector } from 'react-redux';
+import minutesToHoursAndMinutes from '../../../../utils/minutesToHoursAndMinutes';
 
 interface ITimezoneListItemProps {
     timezone: Timezone & {isHome: boolean},
-    index: number,
-    gmt: ITimeForTimezones
+    index: number
 }
 
 const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
     timezone,
-    index,
-    gmt
+    index
 }) => {
+    const gmt = useSelector<RootState, ITimeForTimezones>(state => state.timezonesSlice.gmt);
+
     const [time, setTime] = useState<ITimeForTimezones>({
         hours: 0,
         minutes: 0
@@ -33,21 +34,14 @@ const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        const offset = timezone.utcOffset;
-        const hoursOffset = Math.floor(offset / 60);
-        const minutesOffset = offset - (hoursOffset * 60);
-
-        setTime({
-            hours: gmt.hours + hoursOffset,
-            minutes: gmt.minutes + minutesOffset
-        });
+        setTime(minutesToHoursAndMinutes(timezone.utcOffset + ((gmt.hours * 60) + gmt.minutes)));
     }, [gmt]);
 
     useEffect(() => {
         const offset = timezone.utcOffset - homeTimezone.utcOffset;
         const hours = Math.floor(offset / 60);
-        const minutes = offset - (hours * 60);
-
+        const minutes = offset < 0 ? (hours * 60) - offset : offset - (hours * 60);
+        
         setOffsetFromHome({hours, minutes});
     }, [homeTimezone]);
 
