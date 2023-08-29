@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducers from "./reducers";
-import { Timezone } from "countries-and-timezones";
+import ct, { Timezone } from "countries-and-timezones";
 import { initialState as timezonesInitialState } from "./reducers/TimezonesSlice/TimezonesSlice";
 
 const openedTimezonesText = localStorage.getItem('openedTimezones');
@@ -8,9 +8,12 @@ let openedTimezones: (Timezone & {isHome: boolean})[] = [];
 let homeTimezone: Timezone | null = null;
 if (openedTimezonesText) {
     openedTimezones = JSON.parse(openedTimezonesText);
-    if (openedTimezones.length !== 0) {
-        homeTimezone = openedTimezones.find((timezone) => timezone.isHome) || openedTimezones[0];
+
+    if (openedTimezones.length === 0) {
+        openedTimezones = [Object.assign(ct.getTimezone('Europe/London'), {isHome: true})];
     }
+
+    homeTimezone = openedTimezones.find((timezone) => timezone.isHome) || openedTimezones[0];
 }
 
 const store = configureStore({
