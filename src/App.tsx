@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './App.css';
 import { RootState } from './store';
 import { useSelector } from 'react-redux';

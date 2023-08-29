@@ -6,8 +6,6 @@ import { Timezone } from 'countries-and-timezones';
 
 interface IHourLineProps {
     timezone: (Timezone & {isHome: boolean}),
-    time: ITimeForTimezones,
-    homeTimezone: Timezone,
     offsetFromHome: ITimeForTimezones
 }
 
@@ -15,8 +13,6 @@ const initNums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
 
 const HourLine: FunctionComponent<IHourLineProps> = ({
     timezone,
-    time,
-    homeTimezone,
     offsetFromHome
 }) => {
     const [nums, setNums] = useState<number[]>(initNums);
@@ -25,7 +21,9 @@ const HourLine: FunctionComponent<IHourLineProps> = ({
         if (timezone.isHome) {
             setNums(initNums);
         } else {
-            const offset = offsetFromHome.hours;
+            let offset = offsetFromHome.hours;
+
+            if (offsetFromHome.minutes < 0) offset -= 1;
 
             const arr1 = initNums.slice(0, offset);
             const arr2 = initNums.slice(offset, initNums.length);
@@ -36,7 +34,7 @@ const HourLine: FunctionComponent<IHourLineProps> = ({
     return (
         <div className={styles.container}>
             {nums.map((index) => 
-                <HourCell hour={index} key={index} minutes={Math.abs(offsetFromHome.minutes)}/>
+                <HourCell hour={index} key={index} minutes={offsetFromHome.minutes}/>
             )}
         </div>
     );
