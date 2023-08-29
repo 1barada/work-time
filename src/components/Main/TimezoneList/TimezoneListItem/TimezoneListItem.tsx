@@ -39,7 +39,7 @@ const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
 
     useEffect(() => {
         const offset = timezone.utcOffset - homeTimezone.utcOffset;
-        const hours = Math.floor(offset / 60);
+        const hours = Math.sign(offset) * Math.floor(Math.abs(offset) / 60);
         const minutes = offset < 0 ? (hours * 60) - offset : offset - (hours * 60);
         
         setOffsetFromHome({hours, minutes});
