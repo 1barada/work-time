@@ -50,6 +50,7 @@ const TimezonesSlice = createSlice({
 
             if (state.openedTimezones.length !== 0) {
                 state.openedTimezones[0].isHome = true;
+                state.homeTimezone = state.openedTimezones[0];
             }
 
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
