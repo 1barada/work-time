@@ -4,19 +4,20 @@ import styles from './TimezoneInfo.module.css';
 import ITimeForTimezones from '../../../../../models/ITimeForTimezones';
 import timeToString from '../../../../../utils/timeToString';
 import timeOffsetToString from '../../../../../utils/timeOffsetToString';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 
 interface ITimezoneInfoProps {
     timezone: Timezone & {isHome: boolean},
     time: ITimeForTimezones,
     offsetFromHome: ITimeForTimezones,
-    e: any
+    dragHandleProps: DraggableProvidedDragHandleProps | null | undefined
 }
 
 const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
     timezone,
     time,
     offsetFromHome,
-    e
+    dragHandleProps
 }) => {
     const [city, setCity] = useState<string>('');
     const [region, setRegion] = useState<string>('');
@@ -28,7 +29,7 @@ const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
     }, [timezone]);
 
     return (
-        <div className={styles.container} {...e}>
+        <div className={styles.container} {...dragHandleProps}>
             <div 
                 className={`${styles.home} ${timezone.isHome && styles.is_home}`}
                 title={timezone.isHome 

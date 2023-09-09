@@ -71,7 +71,7 @@ const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
                         timezone={timezone}
                         time={time}
                         offsetFromHome={offsetFromHome}
-                        e={provider.dragHandleProps}
+                        dragHandleProps={provider.dragHandleProps}
                     />
                     <HourLine
                         timezone={timezone}
