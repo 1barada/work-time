@@ -4,7 +4,7 @@ import TimezoneListItem from "./TimezoneListItem/TimezoneListItem";
 import styles from './TimezoneList.module.css';
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
-import { setNewOpenTimezoneOrder, updateGmt } from "../../../store/reducers/TimezonesSlice/TimezonesSlice";
+import { setNewOpenedTimezonesOrder, updateGmt } from "../../../store/reducers/TimezonesSlice/TimezonesSlice";
 import {DragDropContext, DropResult, Droppable} from 'react-beautiful-dnd';
 
 interface TimezoneListProps {
@@ -37,7 +37,7 @@ const TimezoneList: FunctionComponent<TimezoneListProps> = ({
     }, [date]);
 
     const onDragEnd = (result: DropResult) => {
-        dispatch(setNewOpenTimezoneOrder(result));
+        dispatch(setNewOpenedTimezonesOrder(result));
     };
 
     return (

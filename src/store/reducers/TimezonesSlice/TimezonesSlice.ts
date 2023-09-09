@@ -43,7 +43,7 @@ const TimezonesSlice = createSlice({
 
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
         },
-        setNewOpenTimezoneOrder(state, {payload}: PayloadAction<DropResult>) {
+        setNewOpenedTimezonesOrder(state, {payload}: PayloadAction<DropResult>) {
             const {source, destination} = payload;
 
             if (!destination || (
@@ -96,7 +96,7 @@ export const {
     searchTimezone,
     clearRecommendations,
     openTimezone,
-    setNewOpenTimezoneOrder,
+    setNewOpenedTimezonesOrder,
     closeTimezone,
     setHomeTimezone,
     updateGmt
