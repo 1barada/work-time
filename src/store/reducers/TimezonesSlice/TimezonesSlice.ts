@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import ct, { Timezone, Country } from 'countries-and-timezones';
 import { amountOfRecommendations } from '../../../data/constants';
 import ITimeForTimezones from '../../../models/ITimeForTimezones';
+import { DropResult } from 'react-beautiful-dnd';
 
 export interface TimezonesState {
     timezones: Timezone[],
@@ -42,6 +43,23 @@ const TimezonesSlice = createSlice({
 
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
         },
+        setNewOpenTimezoneOrder(state, {payload}: PayloadAction<DropResult>) {
+            const {source, destination} = payload;
+
+            if (!destination || (
+                destination.index === source.index &&
+                destination.droppableId === source.droppableId
+            )) {
+                return;
+            }
+
+            const newOpenedTimezones = Array.from(state.openedTimezones);
+            const element = {...newOpenedTimezones[source.index]};
+            newOpenedTimezones.splice(source.index, 1);
+            newOpenedTimezones.splice(destination.index, 0, element);
+
+            state.openedTimezones = newOpenedTimezones;
+        },
         closeTimezone(state, {payload}: PayloadAction<string>) {
             payload = payload.toLowerCase();
             state.openedTimezones = state.openedTimezones.filter((timezone) => 
@@ -78,6 +96,7 @@ export const {
     searchTimezone,
     clearRecommendations,
     openTimezone,
+    setNewOpenTimezoneOrder,
     closeTimezone,
     setHomeTimezone,
     updateGmt

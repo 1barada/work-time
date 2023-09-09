@@ -2,10 +2,10 @@ import { Timezone } from "countries-and-timezones";
 import { FunctionComponent, useEffect, useState } from "react";
 import TimezoneListItem from "./TimezoneListItem/TimezoneListItem";
 import styles from './TimezoneList.module.css';
-import ITimeForTimezones from "../../../models/ITimeForTimezones";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
-import { updateGmt } from "../../../store/reducers/TimezonesSlice/TimezonesSlice";
+import { setNewOpenTimezoneOrder, updateGmt } from "../../../store/reducers/TimezonesSlice/TimezonesSlice";
+import {DragDropContext, DropResult, Droppable} from 'react-beautiful-dnd';
 
 interface TimezoneListProps {
     timezones: (Timezone & {isHome: boolean})[]
@@ -36,16 +36,31 @@ const TimezoneList: FunctionComponent<TimezoneListProps> = ({
         }));
     }, [date]);
 
+    const onDragEnd = (result: DropResult) => {
+        dispatch(setNewOpenTimezoneOrder(result));
+    };
+
     return (
-        <div className={styles.container}>
-            {timezones.map((timezone, index) => 
-                <TimezoneListItem 
-                    timezone={timezone} 
-                    index={index} 
-                    key={timezone.name}
-                />
-            )}
-        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId='timezone-list'>
+                {(provided) => (
+                    <div 
+                        className={styles.container}
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                    >
+                        {timezones.map((timezone, index) => 
+                            <TimezoneListItem 
+                                timezone={timezone} 
+                                index={index} 
+                                key={timezone.name}
+                            />
+                        )}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     );
 }
  

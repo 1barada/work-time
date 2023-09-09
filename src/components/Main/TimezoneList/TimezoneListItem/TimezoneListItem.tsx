@@ -10,6 +10,7 @@ import { closeTimezone, setHomeTimezone } from '../../../../store/reducers/Timez
 import ITimeForTimezones from '../../../../models/ITimeForTimezones';
 import { useSelector } from 'react-redux';
 import minutesToHoursAndMinutes from '../../../../utils/minutesToHoursAndMinutes';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface ITimezoneListItemProps {
     timezone: Timezone & {isHome: boolean},
@@ -54,22 +55,31 @@ const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
     }
 
     return (
-        <div className={`${styles.container} ${index % 2 === 1 && styles.even}`}>
-            <TimezoneListItemButtons 
-                isHome={timezone.isHome}
-                setHomeHandler={setHomeHandler}
-                closeTimezoneHandler={closeTimezoneHandler}
-            />
-            <TimezoneInfo 
-                timezone={timezone}
-                time={time}
-                offsetFromHome={offsetFromHome}
-            />
-            <HourLine
-                timezone={timezone}
-                offsetFromHome={offsetFromHome}
-            />
-        </div>
+        <Draggable draggableId={timezone.name} index={index}>
+            {(provider) => (
+                <div 
+                    className={styles.container}
+                    ref={provider.innerRef}
+                    {...provider.draggableProps}
+                >
+                    <TimezoneListItemButtons 
+                        isHome={timezone.isHome}
+                        setHomeHandler={setHomeHandler}
+                        closeTimezoneHandler={closeTimezoneHandler}
+                    />
+                    <TimezoneInfo 
+                        timezone={timezone}
+                        time={time}
+                        offsetFromHome={offsetFromHome}
+                        e={provider.dragHandleProps}
+                    />
+                    <HourLine
+                        timezone={timezone}
+                        offsetFromHome={offsetFromHome}
+                    />
+                </div>
+            )}
+        </Draggable>
     );
 };
 

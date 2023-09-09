@@ -8,13 +8,15 @@ import timeOffsetToString from '../../../../../utils/timeOffsetToString';
 interface ITimezoneInfoProps {
     timezone: Timezone & {isHome: boolean},
     time: ITimeForTimezones,
-    offsetFromHome: ITimeForTimezones
+    offsetFromHome: ITimeForTimezones,
+    e: any
 }
 
 const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
     timezone,
     time,
-    offsetFromHome
+    offsetFromHome,
+    e
 }) => {
     const [city, setCity] = useState<string>('');
     const [region, setRegion] = useState<string>('');
@@ -26,7 +28,7 @@ const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
     }, [timezone]);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} {...e}>
             <div 
                 className={`${styles.home} ${timezone.isHome && styles.is_home}`}
                 title={timezone.isHome 

@@ -1,13 +1,9 @@
 .container {
     height: 68px;
-    padding: 5px 10px 5px 0;
+    padding-right: 10px;
     display: flex;
     justify-content: space-between;
     gap: 30px;
     align-items: center;
     background-color: #f3f0c4;
-}
-
-.even {
-    background-color: #edeabf;
 }
