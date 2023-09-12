@@ -56,9 +56,9 @@ const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
 
     return (
         <Draggable draggableId={timezone.name} index={index}>
-            {(provider) => (
+            {(provider, snapshot) => (
                 <div 
-                    className={styles.container}
+                    className={`${styles.container} ${snapshot.isDragging && styles.dragging}`}
                     ref={provider.innerRef}
                     {...provider.draggableProps}
                 >

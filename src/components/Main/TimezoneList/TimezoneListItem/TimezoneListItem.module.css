@@ -7,3 +7,7 @@
     align-items: center;
     background-color: #f3f0c4;
 }
+
+.dragging {
+    box-shadow: 0 4px 20px -5px rgba(0,0,0,0.75);
+} 
