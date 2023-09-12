@@ -23,10 +23,10 @@ const HourCell: FunctionComponent<IHourCellProps> = ({
     }, [hour]);
 
     return (
-        <div className={`${styles.container} ${timeOfTheDay} ${hour === 0 ? styles.first : hour === 23 ? styles.last : ''}`}>
+        <li className={`${styles.container} ${timeOfTheDay} ${hour === 0 ? styles.first : hour === 23 ? styles.last : ''}`}>
             <div>{hour}</div>
             <div className={styles.minutes}>{minutes < 0 ? 60 + minutes : minutes || ''}</div>
-        </div>
+        </li>
     );
 };
 

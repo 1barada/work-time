@@ -32,11 +32,11 @@ const HourLine: FunctionComponent<IHourLineProps> = ({
     }, [offsetFromHome]);
 
     return (
-        <div className={styles.container}>
+        <ul className={styles.container}>
             {nums.map((index) => 
                 <HourCell hour={index} key={index} minutes={offsetFromHome.minutes}/>
             )}
-        </div>
+        </ul>
     );
 };
 
