@@ -9,11 +9,10 @@ let homeTimezone: Timezone | null = null;
 if (openedTimezonesText) {
     openedTimezones = JSON.parse(openedTimezonesText);
 
-    if (openedTimezones.length === 0) {
-        openedTimezones = [Object.assign(ct.getTimezone('Europe/London'), {isHome: true})];
-    }
-
     homeTimezone = openedTimezones.find((timezone) => timezone.isHome) || openedTimezones[0];
+} else {
+    openedTimezones = [Object.assign(ct.getTimezone('Europe/London'), {isHome: true})];
+    homeTimezone = openedTimezones[0];
 }
 
 const store = configureStore({
