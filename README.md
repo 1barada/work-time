@@ -1,6 +1,8 @@
 # Work time
 
-A time schedular for multiple timezones (a [WorldTimeBuddy](https://www.worldtimebuddy.com/) clone). [In Progress]
+A time schedular for multiple timezones (a [WorldTimeBuddy](https://www.worldtimebuddy.com/) clone).
+
+url: https://work-time-c1778.firebaseapp.com/
 
 ## Technologies
 
