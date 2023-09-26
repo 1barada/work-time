@@ -5,7 +5,7 @@ import { clearRecommendations, searchTimezone, openTimezone } from '../../../../
 import { useSelector } from 'react-redux';
 import { Timezone } from 'countries-and-timezones';
 import styles from './Search.module.css';
-import { styleConstants } from '../../../../data/constants';
+import { searchConstants } from '../../../../data/constants';
 import TimezoneRecommendationList from './TimezoneRecommendeationList/TimezoneRecommendationList';
 
 interface ISearchProps {
@@ -49,7 +49,7 @@ const Search: FunctionComponent<ISearchProps> = ({
     return (
         <div 
             className={styles.container}
-            style={{height: styleConstants.searchHeight}}
+            style={{height: searchConstants.searchHeight}}
             ref={searchRef}
         >
             <input
@@ -62,7 +62,7 @@ const Search: FunctionComponent<ISearchProps> = ({
             {isRecomendationsActive && 
             <TimezoneRecommendationList
                 recommendedTimezones={recomendedTimezones}
-                topOffset={styleConstants.searchHeight + (searchRef.current?.offsetTop || 0)}
+                topOffset={searchConstants.searchHeight + (searchRef.current?.offsetTop || 0)}
                 setIsActive={setIsRecomendationsActive}
                 openTimezoneHandler={openTimezoneHandler}
             />}

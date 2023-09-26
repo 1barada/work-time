@@ -1,0 +1,26 @@
+.hour-selector {
+    position: absolute;
+}
+
+.selected-left-right {
+    background-color: #f3f0c4;
+    height: 100%;
+    display: inline-block;
+    transition-property: width;
+    transition-duration: 50ms;
+    transition-timing-function: linear;
+}
+
+.selected {
+    border: 2px solid black;
+    border-radius: 6px;
+    display: inline-block;
+    height: 100%;
+    transition-property: width;
+    transition-duration: 50ms;
+    transition-timing-function: linear;
+}
+
+.dragging {
+    cursor: ew-resize;
+}

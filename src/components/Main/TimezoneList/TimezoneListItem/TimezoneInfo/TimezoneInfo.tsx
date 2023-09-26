@@ -5,6 +5,10 @@ import ITimeForTimezones from '../../../../../models/ITimeForTimezones';
 import timeToString from '../../../../../utils/timeToString';
 import timeOffsetToString from '../../../../../utils/timeOffsetToString';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../store';
+import ISelectedTime from '../../../../../models/ISelectedTime';
+import timeConcatination from '../../../../../utils/timeConcatination';
 
 interface ITimezoneInfoProps {
     timezone: Timezone & {isHome: boolean},
@@ -21,6 +25,7 @@ const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
 }) => {
     const [city, setCity] = useState<string>('');
     const [region, setRegion] = useState<string>('');
+    const selectedTime = useSelector<RootState, ISelectedTime | null>(state => state.hourlineSelectorSlice.selectedTime);
 
     useEffect(() => {
         const splitIndex = timezone.name.lastIndexOf('/')
@@ -38,11 +43,26 @@ const TimezoneInfo: FunctionComponent<ITimezoneInfoProps> = ({
             >
                 {timezone.isHome ? '⌂' : timeOffsetToString(offsetFromHome)}
             </div>
-            <div className={styles.name}>
+            <div 
+                className={styles.name}
+                style={{ 
+                    flex: selectedTime ? '0 0 30%' : '0 0 60%'
+                }}
+            >
                 <div className={styles.city}>{city}</div>    
                 <div className={styles.region}>{region}</div>    
             </div>
-            <div className={styles.offset}>{timeToString(time)}</div>
+            <div 
+                className={styles.offset}
+                style={{
+                    flex: selectedTime ? '0 0 50%' : '0 0 20%'
+                }}
+            >
+                {selectedTime ? 
+                    `${timeToString(timeConcatination(selectedTime.from, offsetFromHome))} - ${timeToString(timeConcatination(selectedTime.to, offsetFromHome))}` :
+                    timeToString(time)
+                }
+            </div>
         </div>
     );
 };

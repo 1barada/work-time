@@ -28,18 +28,27 @@ const TimezonesSlice = createSlice({
     reducers: {
         searchTimezone(state, {payload}: PayloadAction<string>) {
             payload = payload.toLowerCase();
-            state.recomendedTimezones = state.timezones.filter(tz => {
-                return tz.name.toLowerCase().includes(payload);
-            }).slice(0, amountOfRecommendations);
+            state.recomendedTimezones = state.timezones.filter(tz => 
+                tz.name.toLowerCase().includes(payload)
+            ).slice(0, amountOfRecommendations);
         },
         clearRecommendations(state) {
             state.recomendedTimezones = [];
         },
         openTimezone(state, {payload}: PayloadAction<string>) {
             payload = payload.toLowerCase();
-            state.openedTimezones.push(Object.assign(state.timezones.find(tz => {
-                return tz.name.toLowerCase().includes(payload);
-            })!, {isHome: state.openedTimezones.length === 0}));
+
+            if (state.openedTimezones.map(tz => tz.name.toLowerCase()).includes(payload)) return;
+            
+            const newOpenedTimezone = Object.assign(state.timezones.find(tz => 
+                tz.name.toLowerCase().includes(payload)
+            )!, {isHome: state.openedTimezones.length === 0});
+
+            if (newOpenedTimezone.isHome) {
+                state.homeTimezone = newOpenedTimezone;
+            }
+
+            state.openedTimezones.push(newOpenedTimezone);
 
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
         },
@@ -62,13 +71,21 @@ const TimezonesSlice = createSlice({
         },
         closeTimezone(state, {payload}: PayloadAction<string>) {
             payload = payload.toLowerCase();
-            state.openedTimezones = state.openedTimezones.filter((timezone) => 
-                timezone.name.toLowerCase() !== payload
-            );
+            let isHome: boolean = false;
+            state.openedTimezones = state.openedTimezones.filter((timezone) => {
+                if (timezone.name.toLowerCase() === payload) {
+                    if (timezone.isHome) {
+                        isHome = true;
+                    }
 
-            if (state.openedTimezones.length !== 0) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            if (isHome) {
                 state.openedTimezones[0].isHome = true;
-                state.homeTimezone = state.openedTimezones[0];
             }
 
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
@@ -78,11 +95,10 @@ const TimezonesSlice = createSlice({
             const timezones = state.openedTimezones;
 
             timezones.forEach(timezone => timezone.isHome = false);
-            const index = timezones.findIndex((timezone) => timezone.name.toLowerCase() === payload);
-            timezones[index].isHome = true;
+            const home = timezones.find((timezone) => timezone.name.toLowerCase() === payload)!;
+            home.isHome = true;
             
-            state.homeTimezone = timezones[index];
-            state.openedTimezones = timezones;
+            state.homeTimezone = home;
             
             localStorage.setItem('openedTimezones', JSON.stringify(state.openedTimezones));
         },

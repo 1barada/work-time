@@ -1,5 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import styles from './HourCell.module.css';
+import { hourlineConstants } from '../../../../../../data/constants';
 
 interface IHourCellProps {
     hour: number,
@@ -23,7 +24,13 @@ const HourCell: FunctionComponent<IHourCellProps> = ({
     }, [hour]);
 
     return (
-        <li className={`${styles.container} ${timeOfTheDay} ${hour === 0 ? styles.first : hour === 23 ? styles.last : ''}`}>
+        <li 
+            className={`${styles.container} ${timeOfTheDay} ${hour === 0 ? styles.first : hour === 23 ? styles.last : ''}`}
+            style={{
+                height: hourlineConstants.cellHeight,
+                width: hourlineConstants.cellWidth
+            }}
+        >
             <div>{hour}</div>
             <div className={styles.minutes}>{minutes < 0 ? 60 + minutes : minutes || ''}</div>
         </li>

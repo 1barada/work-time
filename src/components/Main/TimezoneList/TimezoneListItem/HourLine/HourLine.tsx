@@ -3,6 +3,7 @@ import styles from './HourLine.module.css';
 import HourCell from './HourCell/HourCell';
 import ITimeForTimezones from '../../../../../models/ITimeForTimezones';
 import { Timezone } from 'countries-and-timezones';
+import { hourlineConstants } from '../../../../../data/constants';
 
 interface IHourLineProps {
     timezone: (Timezone & {isHome: boolean}),
@@ -32,7 +33,10 @@ const HourLine: FunctionComponent<IHourLineProps> = ({
     }, [offsetFromHome]);
 
     return (
-        <ul className={styles.container}>
+        <ul 
+            className={styles.container}
+            style={{flex: `0 0 ${100 * hourlineConstants.hourlineWidthRatio}%`}}
+        >
             {nums.map((index) => 
                 <HourCell hour={index} key={index} minutes={offsetFromHome.minutes}/>
             )}

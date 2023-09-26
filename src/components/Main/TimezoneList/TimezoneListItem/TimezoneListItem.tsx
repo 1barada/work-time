@@ -11,6 +11,7 @@ import ITimeForTimezones from '../../../../models/ITimeForTimezones';
 import { useSelector } from 'react-redux';
 import minutesToHoursAndMinutes from '../../../../utils/minutesToHoursAndMinutes';
 import { Draggable } from 'react-beautiful-dnd';
+import { TimezoneListItemConstants } from '../../../../data/constants';
 
 interface ITimezoneListItemProps {
     timezone: Timezone & {isHome: boolean},
@@ -61,6 +62,10 @@ const TimezoneListItem: FunctionComponent<ITimezoneListItemProps> = ({
                     className={`${styles.container} ${snapshot.isDragging && styles.dragging}`}
                     ref={provider.innerRef}
                     {...provider.draggableProps}
+                    style={{
+                        ...provider.draggableProps.style,
+                        height: TimezoneListItemConstants.height
+                    }}
                 >
                     <TimezoneListItemButtons 
                         isHome={timezone.isHome}
